@@ -36,10 +36,21 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest -v --cov .
+        pytest -v --cov . --cov-report=xml
     - name: Create Coverage 
-      if: ${{ github.event_name == 'pull_request' }}
+#      if: ${{ github.event_name == 'pull_request' }}
       uses: orgoro/coverage@v3
       with:
           coverageFile: coverage.xml
           token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Generate JaCoCo Badge
+# if: ${{ github.ref == 'refs/heads/master' }}
+      uses: cicirello/jacoco-badge-generator@v2
+      with:
+          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
+          badges-directory: build/reports/jacoco/test/html/badges
+    - name: Publish coverage report to GitHub Pages
+# if: ${{ github.ref == 'refs/heads/master' }}
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+          folder: build/reports/jacoco/test/html
