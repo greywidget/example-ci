@@ -44,7 +44,7 @@ jobs:
       uses: tj-actions/coverage-badge-py@v1.8
       with:
         output: coverage/coverage.svg
-    - name: Publish coverage report to coverage-badge branch
+    - name: Publish coverage report to gh-pages branch
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
