@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -49,4 +49,3 @@ jobs:
       with:
         branch: gh-pages
         folder: coverage
-        token: ${{ secrets.GITHUB_TOKEN }}
