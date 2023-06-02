@@ -10,6 +10,10 @@ def multiply(a, b):
     return a * b
 
 
+def chortle():
+    print("Nya Nya Nya")
+
+
 def absolute(a):
     return abs(a)
 
