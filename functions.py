@@ -15,4 +15,6 @@ def absolute(a):
 
 
 def convert_fahrenheit_to_celsius(fahrenheit):
+    if fahrenheit < 0:
+        raise AssertionError
     return multiply(subtract(fahrenheit, 32), 9 / 5)  # <-- Fix this in step 7
