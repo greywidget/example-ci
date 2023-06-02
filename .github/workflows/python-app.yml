@@ -37,20 +37,15 @@ jobs:
     - name: Test with pytest
       run: |
         pytest -v --cov . --cov-report=xml
-    - name: Create Coverage 
-      if: ${{ github.event_name == 'pull_request' }}
-      uses: orgoro/coverage@v3
-      with:
-          coverageFile: coverage.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Generate JaCoCo Badge
-# if: ${{ github.ref == 'refs/heads/main' }}
-      uses: cicirello/jacoco-badge-generator@v2
-      with:
-          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
-          badges-directory: build/reports/jacoco/test/html/badges
-    - name: Publish coverage report to GitHub Pages
-# if: ${{ github.ref == 'refs/heads/main' }}
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-          folder: build/reports/jacoco/test/html
+        - name: Creating coverage folder
+          run: |
+            mkdir -p coverage
+        - name: Coverage Bagdge
+          uses: tj-actions/coverage-badge-py@v1.8
+          with:
+            output: coverage/coverage.svg
+        - name: Publish coverage report to coverage-badge branch
+          uses: JamesIves/github-pages-deploy-action@v4
+          with:
+            branch: coverage-badge
+            folder: coverage
